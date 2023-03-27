@@ -4,7 +4,7 @@
 #include <cstring>
 #include <sstream>
 
-Email::Email(string type, string email_addr){
+Email::Email(string type, string email_addr): {
     // TODO: Complete me!
 }
 
