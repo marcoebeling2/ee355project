@@ -5,12 +5,15 @@
 #include <iostream>
 #include <string>
 // TODO: You may need to add other libraries here!
+#include <cstring>
+
 using namespace std;
 
 
 class Contact {
-    // TODO: private or protected? Look at your children!	
-	string type;
+    // TODO: private or protected? Look at your children!
+public:	
+	string type; // I think it should be public because the child classes are using it freely
 public:
 	virtual void print() = 0;
     virtual string get_contact(string style="full") = 0;
@@ -24,6 +27,8 @@ private:
 public:
     Email(string type, string email_addr);
     // TODO: Complete me!
+    string get_contact(string style);
+    
 };
 
 
@@ -34,6 +39,7 @@ private:
 public:
     Phone(string type, string phone_number);
     // TODO: Complete me!
+    string get_contact(string style);
 };
 
 #endif
