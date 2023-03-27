@@ -13,3 +13,7 @@ contact_test.cpp
 We made this file to test the funcionality of contact.cpp
 
 Date.cpp
+
+
+person.cpp
+We used string streams to parse the birthdate for the Person::Person(string f_name_, string l_name_, string b_date_, string email_, string phone_) constructor.

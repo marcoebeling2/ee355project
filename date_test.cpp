@@ -11,4 +11,8 @@ int main(){
     // print dates out
     day1.print_date();
     day2.print_date();
+
+    const string months[12] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+    Date day3(months[3], to_string(14), to_string(2003));
+    day3.print_date();
 }
