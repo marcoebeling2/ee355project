@@ -28,6 +28,8 @@ public:
     Email(string type, string email_addr);
     // TODO: Complete me!
     string get_contact(string style);
+    void set_contact();
+    void print();
     
 };
 
@@ -35,11 +37,13 @@ public:
 class Phone: public Contact{
 private:
     // TODO: modify dataType! Can int store 10 digit phone-number? 
-	dataType phone_num; 
+	string phone_num; 
 public:
     Phone(string type, string phone_number);
     // TODO: Complete me!
     string get_contact(string style);
+    void set_contact();
+    void print();
 };
 
 #endif
