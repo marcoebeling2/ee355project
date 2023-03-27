@@ -2,10 +2,13 @@
 #include "contact.h"
 // TODO: Add needed libraries! 
 #include <cstring>
-#include <sstream>
+#include <string>
+#include <iostream>
 
-Email::Email(string type, string email_addr): {
+Email::Email(string type_, string email_addr_){
     // TODO: Complete me!
+    type = type_;
+    email_addr = email_addr_;
 }
 
 
@@ -14,7 +17,7 @@ void Email::set_contact(){
     cout << "Enter the type of email address: ";
     // some code here
     // use type as the output string
-    getline(cin, type)
+    getline(cin, type);
     cout << "Enter email address: ";
     // some code here
     // use email_addr as the output string
@@ -37,7 +40,7 @@ void Email::print(){
 }
 
 
-Phone::Phone(string type, string num){
+Phone::Phone(string type_, string num_){
     // TODO: It is possible that num includes "-" or not, manage it!
     // TODO: Complete this method!
     // Note: We don't want to use C++11! stol is not valid!
@@ -49,6 +52,16 @@ Phone::Phone(string type, string num){
     long int  number = atoi(num.substr(3).c_str()); 
     this->phone_num = area_code*10000000 + number; 
     */
+
+
+    type = type_;
+    // parse num_
+    for (unsigned int i = 0; i < num_.length(); i++){
+    // if the indexed num is not "-"... added it to phone_num
+        if (num_[i] != '-'){
+            phone_num += num_[i];
+        }
+    }
 }
 
 
@@ -60,7 +73,18 @@ void Phone::set_contact(){
     getline(cin, type);
 	cout << "Enter the phone number: ";
     // use phone_num as the output string
-    getline(cin, phone_num);
+    // use a temp variable to parse
+    string temp;
+    getline(cin, temp);
+    // reset phone_num
+    phone_num = "";
+    // parse temp
+    for (unsigned int i = 0; i < temp.length(); i++){
+    // if the indexed num is not "-"... added it to phone_num
+        if (temp[i] != '-'){
+            phone_num += temp[i];
+        }
+    }
 }
 
 
@@ -75,7 +99,7 @@ string Phone::get_contact(string style){
 	int x3 = phone_num%10000;
     */
    if (style=="full")
-	    return "(" + type + "): " phone_num[0] + phone_num[1] + phone_num[2] "-" + phone_num[3] + phone_num[4] + phone_num[5] "-" phone_num[6] + phone_num[7] + phone_num[8] + phone_num[9];
+	    return "(" + type + "): " + phone_num[0] + phone_num[1] + phone_num[2] + "-" + phone_num[3] + phone_num[4] + phone_num[5] + "-" +  phone_num[6] + phone_num[7] + phone_num[8] + phone_num[9];
     else 
         return phone_num; 
 }
