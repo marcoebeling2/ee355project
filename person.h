@@ -34,6 +34,10 @@ public:
     string getFirstName() const;
     string getLastName() const;
     string getPhoneNum() const;
+
+    // ctor and sets that we added to help with network
+    void set_person(ifstream &ifstr);
+    Person(ifstream &ifstr);
 };
 
 

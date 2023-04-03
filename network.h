@@ -23,7 +23,22 @@ class Network{
         void push_front(Person* newEntry);
         void push_back(Person* newEntry);
         bool remove(string fname, string lname);
-        void showMenu();
+        // comment out for now
+        //void showMenu();
+        void loadDB(string filename);
+        void saveDB(string filename);
+
+        // friend functions
+        // get functions for network
+        Person* getNext(Person &p);
+        Person* getPrev(Person &p);
+
+        // set functions for network
+        void setNext(Person &p, Person* newP);
+        void setPrev(Person &p, Person* newP);
+
+        // pop_back function to help with cleaning up
+        void pop_back();
 };
 
 #endif

@@ -60,7 +60,16 @@ int main(){
 
 
     // everything up to here works. I think there might be some errors with the set functions
-    myGuy.set_person();
-    myGuy.print_person();
+    //myGuy.set_person();
+    //myGuy.print_person();
+
+    // ifstr test
+    cout << "IFSTR" << endl;
+    ifstream ifstr;
+    ifstr.open("networkDB.txt");
+    Person myGuy3(ifstr);
+    ifstr.close();
+    myGuy3.print_person();
+    // it works
 }
 

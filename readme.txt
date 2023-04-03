@@ -16,4 +16,7 @@ Date.cpp
 
 
 person.cpp
-We used string streams to parse the birthdate for the Person::Person(string f_name_, string l_name_, string b_date_, string email_, string phone_) constructor. For opperator overloading, we added get name and get birthday member functions.
+We used string streams to parse the birthdate for the Person::Person(string f_name_, string l_name_, string b_date_, string email_, string phone_) constructor. For opperator overloading, we added get name and get birthday member functions. I also added a set function and constructor similar to set(filename), except this time I pass an ofstr.
+
+network.cpp
+First, we added the friend functions to get and set next and prev for person class. Then, we added a pop_back function to help with clearing everything for the dtor and loading in new data.

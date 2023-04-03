@@ -224,3 +224,49 @@ void Person::print_person(){
     email->print();
     phone->print();
 }
+
+// ctor and sets that we added to help with network
+
+void Person::set_person(ifstream &ifstr){
+    // assume the ifstr has been opened already
+
+    // this is the same thing as set_person(filename)
+
+    // read data in now using getline
+    string firstName;
+    string lastName;
+    string birthDate;
+    string emailIn;
+    string phoneIn;
+
+    getline(ifstr, firstName);
+    getline(ifstr, lastName);
+    getline(ifstr, birthDate);
+    // because the input changes from networkDB.txt to personal_template.txt... check if the next line has an '@'... if it does, its the email line
+    string temp;
+    getline(ifstr, temp);
+    // index through temp to find '@'
+    bool isEmail = false;
+    for (int i = 0; i < temp.size(); i++){
+        if (temp[i] == '@'){
+            isEmail = true;
+        }
+    }
+    // if it is an email.. use temp as an email, else use it as a phone
+    if (isEmail){
+        emailIn = temp;
+        getline(ifstr, phoneIn);
+    }
+    else {
+        phoneIn = temp;
+        getline(ifstr, emailIn);
+    }
+
+    // call the constructor now
+    new (this) Person(firstName, lastName, birthDate, emailIn, phoneIn);
+
+}
+
+Person::Person(ifstream &ifstr){
+    set_person(ifstr);
+}
