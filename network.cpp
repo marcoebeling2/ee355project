@@ -67,7 +67,10 @@ void Network::loadDB(string filename){
         // get the next line to get next input correct
         string nextLine;
         getline(ifstr, nextLine);
+        if (ifstr.eof()){
+            break;
         }
+    }
 
     // close if stream
     ifstr.close();
@@ -173,6 +176,14 @@ bool Network::remove(string fname, string lname){
     for (int i = 0; i < count; i++){
         // get the first name and last name of the indexed person and check for a match
         if ((temp->getFirstName() == fname) && (temp->getLastName() == lname)){
+            // for testing purposes:
+            cout << "removing:" << endl;
+            temp->print_person();
+
+
+
+
+
             // if it is match, remove accordingly
             // four cases... count = 1; head; tail; none
             if (count == 1){ // just pop_back
@@ -192,7 +203,7 @@ bool Network::remove(string fname, string lname){
                 count--;
             }
             else if (temp == tail){ // if this is at the end just pop back
-                pop_back;
+                pop_back();
             }
             else { // if it is in the middle change accordingly
                 // change prev's next
@@ -207,16 +218,14 @@ bool Network::remove(string fname, string lname){
                 // decrement count
                 count--;
             }
-            }
-
-
+            // change removed 
             removed = true;
             // change i to index to the next one without skipping
             i--;
         }
     }
-
- 
+    // return removed
+    return removed;
 }
 
 
