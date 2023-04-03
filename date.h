@@ -9,7 +9,8 @@ class Date{
         Date(int month, int day, int year);
         Date(std::string month, std::string day, std::string year);
         void print_date();
-        void print_date(string format);
+        void print_date(std::string format);
+        std::string getDate();
     private:
         std::string month_;
         std::string day_;

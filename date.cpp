@@ -19,3 +19,10 @@ void Date::print_date(string format){
     cout << month_ << ", " << day_ << " " << year_ << endl;
 }
 
+
+string Date::getDate(){
+    string out = "";
+    out += month_ + "/" + day_ + "/" + year_;
+    return out;
+}
+

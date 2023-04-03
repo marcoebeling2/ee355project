@@ -31,8 +31,7 @@ Person::Person(string f_name_, string l_name_, string b_date_, string email_, st
     int year;
     ss >> month >> delimeter >> day >> delimeter >> year;
     // allocate and construct birthdate
-    Date* temp = new Date(month, day, year);
-    birthdate = temp;
+    birthdate = new Date(month, day, year);
 
     // i am not really sure what "full form" means... I am just going to assume that it means in the format: (type) contact
     // email first
@@ -40,26 +39,24 @@ Person::Person(string f_name_, string l_name_, string b_date_, string email_, st
     // split into type and email
     string typeE;
     string emailIn;
-    ss >> typeE >> emailIn;
+    ssE >> typeE >> emailIn;
     // remove () from typeE
     typeE.erase(0, 1);
     typeE.erase(typeE.size() - 1, 1);
     // allocate and construct a new email object
-    Email* tempE = new Email(typeE, emailIn);
-    email = tempE;
+    email= new Email(typeE, emailIn);
 
     // phone now
     std::stringstream ssP(phone_);
     // split into type and email
     string typeP;
     string phoneIn;
-    ss >> typeP, phoneIn;
+    ssP >> typeP >> phoneIn;
     // remove () from typeP
     typeP.erase(0, 1);
     typeP.erase(typeP.size() - 1, 1);
     // allocate and construct a new phone object
-    Phone* tempP = new Phone(typeP, phoneIn);
-    phone = tempP;
+    phone = new Phone(typeP, phoneIn);
 }
 
 
@@ -153,7 +150,7 @@ void Person::set_person(string filename){
             isEmail = true;
         }
     }
-    // if it is a email.. use temp as an email, else use it as a phone
+    // if it is an email.. use temp as an email, else use it as a phone
     if (isEmail){
         emailIn = temp;
         getline(ifstr, phoneIn);
@@ -173,12 +170,52 @@ bool Person::operator==(const Person& rhs){
     // TODO: Complete this method!
     // Note: you should check first name, last name and birthday between two persons
     // refer to bool Date::operator==(const Date& rhs)
+
+    // need to add get name and get birthday functions...
+
+    // if first name, last name, and birthday are the same return true
+
+    // gotcha case
+    if (this == &rhs){
+        return true;
+    }
+
+    bool nameEqual = (f_name == rhs.getFirstName()) && (l_name == rhs.getLastName());
+    bool birthdayEqual = (birthdate->getDate() == rhs.birthdate->getDate());
+
+    return nameEqual && birthdayEqual;
+    /*
+    if ((this->getFirstName() == rhs.getFirstName()) && (this->getLastName() == rhs.getLastName()) && (this->birthdate->getDate() == rhs.birthdate->getDate())){
+        return 1
+    }
+    else {
+        return 0;
+    }
+    */
 }
 
 bool Person::operator!=(const Person& rhs){ 
     // TODO: Complete this method!
+    if (*this == rhs){
+        return 0;
+    }
+    else {
+        return 1;
+    }
 }
 
+// get functions
+string Person::getFirstName() const{
+    return f_name;
+}
+
+string Person::getLastName() const{
+    return l_name;
+}
+
+string Person::getPhoneNum() const{
+    return phone->get_contact("not full");
+}
 
 void Person::print_person(){
     // Already implemented for you! Do not change!

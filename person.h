@@ -5,6 +5,7 @@
 #include "date.h"
 #include "contact.h"
 #include "fstream"
+#include <string>
 class Person{
     friend class Network;
 
@@ -28,6 +29,11 @@ public:
 	void set_person(string filename);
     bool operator==(const Person& rhs);
     bool operator!=(const Person& rhs);
+
+    // additions for opperator overloading
+    string getFirstName() const;
+    string getLastName() const;
+    string getPhoneNum() const;
 };
 
 
