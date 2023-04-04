@@ -14,6 +14,8 @@ class Network{
         int count; 
         Person* search(Person* searchEntry);
         Person* search(string fname, string lname);
+        // added this function to help with showMenu
+        void search(string lname, string* list);
 
     public:
         Network();
@@ -26,7 +28,7 @@ class Network{
         // comment out for now
         //void showMenu();
         void loadDB(string filename);
-        void saveDB(string filename);
+        int saveDB(string filename);
 
         // friend functions
         // get functions for network

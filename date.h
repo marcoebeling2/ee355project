@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+#include <fstream>
 
 class Date{
     public:
@@ -11,6 +12,8 @@ class Date{
         void print_date();
         void print_date(std::string format);
         std::string getDate();
+        // this is to help with Network::saveDB()
+        void print_date(std::string format, std::ofstream &ofstr);
     private:
         std::string month_;
         std::string day_;

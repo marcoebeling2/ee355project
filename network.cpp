@@ -30,6 +30,20 @@ Person* Network::search(Person* searchEntry){
     // Searches the Network for searchEntry
     // if found, returns a pointer to it, else returns NULL
     // TODO: Complete this method
+
+    // temp pointer to index through
+    Person* temp = head;
+
+    // index through and check it
+    for (int i = 0; i < count; i++){
+        if (temp == searchEntry){
+            return searchEntry;
+        }
+        // update temp 
+        temp = getNext(*temp);
+    }
+    // if you get here return NULL
+    return NULL;
 }
 
 
@@ -38,10 +52,24 @@ Person* Network::search(string fname, string lname){
     // if found, returns a pointer to it, else returns NULL
     // TODO: Complete this method
     // Note: two ways to implement this, 1st making a new Person with fname and lname and and using search(Person*), 2nd using fname and lname directly. 
+
+
+    // use second method
+    // temp pointer to index through
+    Person* temp = head;
+
+    // index through entire network
+    for (int i = 0; i < count; i++){
+        // if it is a match, return temp
+        if ((temp->getFirstName() == fname) && (temp->getLastName() == lname)){
+            return temp;
+        }
+        // update temp
+        temp = getNext(*temp);
+    }
+    // if you made it this far just return NULL
+    return NULL;
 }
-
-
-
 
 void Network::loadDB(string filename){
     // TODO: Complete this method
@@ -67,6 +95,9 @@ void Network::loadDB(string filename){
         // get the next line to get next input correct
         string nextLine;
         getline(ifstr, nextLine);
+
+        // debugging
+        //cout << nextLine << endl;
         if (ifstr.eof()){
             break;
         }
@@ -76,10 +107,30 @@ void Network::loadDB(string filename){
     ifstr.close();
 }
 
-void Network::saveDB(string filename){
+int Network::saveDB(string filename){
     // TODO: Complete this method
 
-    // i dont really know what to do here lol
+    // open the file 
+    ofstream ofstr;
+    ofstr.open(filename);
+
+    // check if it did not opened
+    if (!(ofstr.is_open())){
+        return 1;
+    }
+
+    // if it opened print everything out
+    ofstr << "Number of people: " << count << endl;
+    ofstr << "------------------------------" << endl;
+    Person* ptr = head;
+    while(ptr != NULL){
+        ptr->print_person(ofstr);
+        ofstr << "------------------------------" << endl;
+        ptr = ptr->next;
+    }
+    // if made it this far, return 0
+    return 0;
+
 }
 
 
@@ -174,16 +225,8 @@ bool Network::remove(string fname, string lname){
     
     // index through all of them
     for (int i = 0; i < count; i++){
-        // get the first name and last name of the indexed person and check for a match
+
         if ((temp->getFirstName() == fname) && (temp->getLastName() == lname)){
-            // for testing purposes:
-            cout << "removing:" << endl;
-            temp->print_person();
-
-
-
-
-
             // if it is match, remove accordingly
             // four cases... count = 1; head; tail; none
             if (count == 1){ // just pop_back
@@ -223,6 +266,12 @@ bool Network::remove(string fname, string lname){
             // change i to index to the next one without skipping
             i--;
         }
+
+        // change temp
+        temp = getNext(*temp);
+
+        // debugging
+        //temp->print_person();
     }
     // return removed
     return removed;
@@ -230,7 +279,7 @@ bool Network::remove(string fname, string lname){
 
 
 // comment out for now
-/*
+
 void Network::showMenu(){
     // TODO: Complete this method!
     // All the prompts are given to you, 
@@ -267,6 +316,17 @@ void Network::showMenu(){
             // TODO: Complete me!
             cout << "Saving network database \n";
             cout << "Enter the name of the save file: ";
+
+            // get data
+            cin >> fileName;
+            // run save DB until it returns 0
+            int saveDB_ = saveDB(fileName);
+            while (saveDB_ == 1){ // run saveDB until it does not return 1
+                cout << "Enter another file name to save the file:"
+                cin >> fileName;
+                saveDB_ = saveDB(fileName);
+            }
+
             cout << "Network saved in " << fileName << endl;
         }
         else if (opt==2){
@@ -285,6 +345,23 @@ void Network::showMenu(){
             // TODO: use push_front, and not push_back 
             // Add a new Person ONLY if it does not exists!
             cout << "Adding a new person \n";
+
+            // create a new person
+            Person* temp = new Person();
+
+            // check if person exists
+            fname = temp->getFirstName();
+            lname = temp->getLastName();
+            // use search now... hopefully it returns NULL
+            Person* exists = search(fname, lname);
+
+            if (exists == NULL){
+                // call push_front
+                push_front(temp);
+            }
+            else {
+                cout << "Sorry. That person exists already." << endl;
+            }
         }
         else if (opt == 4){
             // TODO: Complete me!
@@ -292,14 +369,42 @@ void Network::showMenu(){
             // if not found: cout << "Person not found! \n";
             cout << "Removing a person \n";
             cout << "First name: ";
+            cin >> fname;
             cout << "Last name: ";
+            cin >> lname;
+
+            // rmeove that person now
+            bool removed = remove(fname, lname);
+            if (removed){
+                cout << "Remove Successful! \n";
+            }
+            else {
+                cout << "Person not found! \n";
+            }
         }
         else if (opt==5){
             // TODO: Complete me!
             // print the people with the given last name
             // if not found: cout << "Person not found! \n";
             cout << "Print people with last name \n";
-            cout << "Last name: ";
+            cout << "Last name: " << endl;;
+
+            cin >> lname;
+
+            // create a string to hold the output
+            string output = "";
+            // call search function
+            search(lname, &output);
+
+            // if output is size == 0... no one match
+            if (output.size() == 0){
+                cout << "Person not found! \n";
+            }
+            else {
+                cout << output << endl;
+            }
+
+            
         }
         
         else
@@ -313,9 +418,6 @@ void Network::showMenu(){
         cout << "\033[2J\033[1;1H";
     }
 }
-
-
-*/
 
 
 
@@ -371,4 +473,21 @@ void Network::pop_back(){
 
     // decrement count
     count--;
+}
+
+// added this to help with option 4 of show meun
+void Network::search(string lname, string* list){
+    // temp pointer to index through
+    Person* temp = head;
+
+    // index through entire network
+    for (int i = 0; i < count; i++){
+        // if it is a match, return temp
+        if (temp->getLastName() == lname){
+            // add the last name to the list
+            *list += temp->getFirstName() + " " +  temp->getLastName() + "\n";
+        }
+        // update temp
+        temp = getNext(*temp);
+    }
 }

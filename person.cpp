@@ -265,8 +265,26 @@ void Person::set_person(ifstream &ifstr){
     // call the constructor now
     new (this) Person(firstName, lastName, birthDate, emailIn, phoneIn);
 
+    // debugging 
+    /*
+    cout << firstName << endl;
+    cout << lastName << endl;
+    cout << birthDate << endl;
+    cout << emailIn << endl;
+    cout << phoneIn << endl;
+    */
+
 }
 
 Person::Person(ifstream &ifstr){
     set_person(ifstr);
+}
+
+// this is to help with Network::saveDB()
+void Person::print_person(ofstream &ofstr){
+    // Already implemented for you! Do not change!
+	ofstr << l_name <<", " << f_name << endl;
+	birthdate->print_date("Month D, YYYY", ofstr);
+    email->print(ofstr);
+    phone->print(ofstr);
 }

@@ -6,6 +6,7 @@
 #include "contact.h"
 #include "fstream"
 #include <string>
+#include <fstream>
 class Person{
     friend class Network;
 
@@ -38,6 +39,9 @@ public:
     // ctor and sets that we added to help with network
     void set_person(ifstream &ifstr);
     Person(ifstream &ifstr);
+
+    // added this fuction to save files
+    void print_person(ofstream &ofstr);
 };
 
 

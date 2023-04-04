@@ -109,3 +109,15 @@ void Phone::print(){
     // Note: get_contact is called with default argument
 	cout << "Phone " << get_contact() << endl;
 }
+
+
+// thses are two help with Network::saveDB()
+void Phone::print(ofstream &ofstr){
+    // Note: get_contact is called with default argument
+	ofstr << "Phone " << get_contact() << endl;
+}
+void Email::print(ofstream &ofstr){
+    // Note: get_contact is called with default argument
+	ofstr << "Email " << get_contact() << endl;
+}
+

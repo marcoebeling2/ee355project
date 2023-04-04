@@ -6,6 +6,7 @@
 #include <string>
 // TODO: You may need to add other libraries here!
 #include <cstring>
+#include <fstream>
 
 using namespace std;
 
@@ -30,6 +31,8 @@ public:
     string get_contact(string style="full");
     void set_contact();
     void print();
+    // this is to help with Network::saveDB()
+    void print(ofstream &ofstr);
     
 };
 
@@ -44,6 +47,8 @@ public:
     string get_contact(string style="full");
     void set_contact();
     void print();
+    // this is to help with Network::saveDB()
+    void print(ofstream &ofstr);
 };
 
 #endif

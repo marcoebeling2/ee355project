@@ -2,6 +2,7 @@
 #include <string>
 #include <ctime>
 #include "date.h"
+#include <fstream>
 
 using namespace std;
 
@@ -17,6 +18,10 @@ void Date::print_date(){
 
 void Date::print_date(string format){
     cout << month_ << ", " << day_ << " " << year_ << endl;
+}
+
+void Date::print_date(string format, std::ofstream &ofstr){
+    ofstr << month_ << ", " << day_ << " " << year_ << endl;
 }
 
 
