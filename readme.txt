@@ -22,3 +22,6 @@ We used string streams to parse the birthdate for the Person::Person(string f_na
 
 network.cpp
 First, we added the friend functions to get and set next and prev for person class. Then, we added a pop_back function to help with clearing everything for the dtor and loading in new data. We changed void saveDB() to be int saveDB(). The purpose of this was for error handling. I added a function that searches based only on last name to help with show menu option 4.
+
+main.cpp
+In this file, I implement the main program with an empty network object.
