@@ -17,6 +17,8 @@ Network::Network(string fileName){
     // TODO: complete this method!
     // Implement it in one single line!
     // You may need to implement the load method before this!
+    loadDB(fileName);
+
 }
 
 Network::~Network(){ 
@@ -37,7 +39,7 @@ Person* Network::search(Person* searchEntry){
     // index through and check it
     for (int i = 0; i < count; i++){
         if (temp == searchEntry){
-            return searchEntry;
+            return temp;
         }
         // update temp 
         temp = getNext(*temp);
@@ -133,7 +135,6 @@ int Network::saveDB(string filename){
 
 }
 
-
 void Network::printDB(){
     // Leave me alone! I know how to print! 
     // Note: Notice that we don't need to update this even after adding to Personattributes
@@ -148,8 +149,6 @@ void Network::printDB(){
     }
 }
 
-
-
 void Network::push_front(Person* newEntry){
     newEntry->prev = NULL;
     newEntry->next = head;
@@ -162,7 +161,6 @@ void Network::push_front(Person* newEntry){
     head = newEntry;
     count++;
 }
-
 
 void Network::push_back(Person* newEntry){
     // Adds a new Person (newEntry) to the back of LL
@@ -278,8 +276,6 @@ bool Network::remove(string fname, string lname){
 }
 
 
-// comment out for now
-
 void Network::showMenu(){
     // TODO: Complete this method!
     // All the prompts are given to you, 
@@ -322,7 +318,7 @@ void Network::showMenu(){
             // run save DB until it returns 0
             int saveDB_ = saveDB(fileName);
             while (saveDB_ == 1){ // run saveDB until it does not return 1
-                cout << "Enter another file name to save the file:"
+                cout << "Enter another file name to save the file:" << endl;
                 cin >> fileName;
                 saveDB_ = saveDB(fileName);
             }
@@ -334,11 +330,30 @@ void Network::showMenu(){
             cout << "Loading network database \n";
             // TODO: print all the files in this same directory that have "networkDB.txt" format
             // Take a look into sample_files.cpp 
-            cout << "Enter the name of the load file: "; 
-            // If file with name FILENAME does not exist: 
-            cout << "File FILENAME does not exist!" << endl;
-            // If file is loaded successfully, also print the count of people in it: 
-            cout << "Network loaded from " << fileName << " with " << count << " people \n";
+            cout << "Enter the name of the load file: ";
+
+            // get input
+            string fileName;
+            cin >> fileName;
+
+            // open file
+            ifstream ifstr;
+            ifstr.open(fileName);
+
+            // check if it opened... if it did, load data
+            if (!(ifstr.is_open())){  // if it did not open
+                // If file with name FILENAME does not exist: 
+                cout << "File FILENAME does not exist!" << endl;
+            }
+            else { // if it did 
+                // load the file now
+                loadDB(fileName);
+                // If file is loaded successfully, also print the count of people in it: 
+                cout << "Network loaded from " << fileName << " with " << count << " people \n";
+            }
+
+            // close ifstr
+            ifstr.close();
         }
         else if (opt == 3){
             // TODO: Complete me!
