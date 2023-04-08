@@ -25,3 +25,7 @@ First, we added the friend functions to get and set next and prev for person cla
 
 main.cpp
 In this file, I implement the main program with an empty network object.
+
+
+compile with
+-std=c++0x
