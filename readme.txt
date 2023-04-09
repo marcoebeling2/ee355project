@@ -28,4 +28,4 @@ In this file, I implement the main program with an empty network object.
 
 
 compile with
--std=c++0x
+g++ -g -std=c++0x network.cpp person.cpp contact.cpp date.cpp misc.cpp main.cpp -o networkTest
