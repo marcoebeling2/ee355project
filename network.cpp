@@ -404,9 +404,9 @@ void Network::showMenu(){
             // if not found: cout << "Person not found! \n";
             cout << "Removing a person \n";
             cout << "First name: ";
-            cin >> fname;
+            getline(cin, fname);
             cout << "Last name: ";
-            cin >> lname;
+            getline(cin, lname);
 
             // rmeove that person now
             bool removed = remove(fname, lname);
@@ -422,9 +422,9 @@ void Network::showMenu(){
             // print the people with the given last name
             // if not found: cout << "Person not found! \n";
             cout << "Print people with last name \n";
-            cout << "Last name: " << endl;;
+            cout << "Last name: " << endl;
 
-            cin >> lname;
+            getline(cin, lname);
 
             // create a string to hold the output
             string output = "";
