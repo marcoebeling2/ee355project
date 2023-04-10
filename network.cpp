@@ -6,6 +6,12 @@
 #include <iostream>
 #include <string>
 
+#include <cstring>
+#include <dirent.h>
+#include <sys/types.h>
+// function to help with find txt files
+bool has_txt_extension(const char* filename);
+
 Network::Network(){
     head = NULL;
     tail = NULL;
@@ -329,6 +335,20 @@ void Network::showMenu(){
             // TODO: Complete me!
             cout << "Loading network database \n";
             // TODO: print all the files in this same directory that have "networkDB.txt" format
+            
+            DIR *dr;
+            struct dirent *en;
+            dr = opendir("."); // open current directory
+
+            if (dr) {
+                while ((en = readdir(dr)) != NULL) {
+                    if (has_txt_extension(en->d_name)) {
+                        cout << en->d_name << endl; // print .txt file names
+                    }
+                }
+                closedir(dr); // close directory
+            }
+            
             // Take a look into sample_files.cpp 
             cout << "Enter the name of the load file: ";
 
@@ -505,4 +525,10 @@ void Network::search(string lname, string* list){
         // update temp
         temp = getNext(*temp);
     }
+}
+
+
+bool has_txt_extension(const char* filename) {
+    const char* ext = strrchr(filename, '.');
+    return ext != nullptr && strcmp(ext, ".txt") == 0;
 }

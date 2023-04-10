@@ -21,7 +21,7 @@ person.cpp
 We used string streams to parse the birthdate for the Person::Person(string f_name_, string l_name_, string b_date_, string email_, string phone_) constructor. For opperator overloading, we added get name and get birthday member functions. I also added a set function and constructor similar to set(filename), except this time I pass an ofstr. I also added void print_person(ofstream &ofstr) to help with Network::saveDB. After  implementing saveDB, I realized that constructing the phone number may have to factor in cases when ten digits are not given.
 
 network.cpp
-First, we added the friend functions to get and set next and prev for person class. Then, we added a pop_back function to help with clearing everything for the dtor and loading in new data. We changed void saveDB() to be int saveDB(). The purpose of this was for error handling. I added a function that searches based only on last name to help with show menu option 4.
+First, we added the friend functions to get and set next and prev for person class. Then, we added a pop_back function to help with clearing everything for the dtor and loading in new data. We changed void saveDB() to be int saveDB(). The purpose of this was for error handling. I added a function that searches based only on last name to help with show menu option 4. Lines 9-14, 339-351, and 531-534 come from https://www.tutorialspoint.com/how-can-i-get-the-list-of-files-in-a-directory-using-c-or-cplusplus#:~:text=Call%20opendir()%20function%20to,name%20using%20en%2D%3Ed_name.These lines are used to find txt files in the current dirrectory.
 
 main.cpp
 In this file, I implement the main program with an empty network object.

@@ -98,10 +98,20 @@ string Phone::get_contact(string style){
 	int x2 = ((phone_num)/10000)%1000;
 	int x3 = phone_num%10000;
     */
-   if (style=="full")
-	    return "(" + type + "): " + phone_num[0] + phone_num[1] + phone_num[2] + "-" + phone_num[3] + phone_num[4] + phone_num[5] + "-" +  phone_num[6] + phone_num[7] + phone_num[8] + phone_num[9];
-    else 
+    string out = "(" + type + "): ";
+   if (style=="full"){
+        for (int i = 0; i < phone_num.size(); i++){
+            out += phone_num[i];
+            if ((i == 2) || (i == 5)){
+                out += "-";
+            }
+        }
+        return out;
+	    //return "(" + type + "): " + phone_num[0] + phone_num[1] + phone_num[2] + "-" + phone_num[3] + phone_num[4] + phone_num[5] + "-" +  phone_num[6] + phone_num[7] + phone_num[8] + phone_num[9];
+   }
+    else {
         return phone_num; 
+    }
 }
 
 
