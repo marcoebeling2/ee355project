@@ -7,6 +7,9 @@
 #include "fstream"
 #include <string>
 #include <fstream>
+#include "misc.h"
+#include <vector>
+
 class Person{
     friend class Network;
 
@@ -19,6 +22,10 @@ private:
     // the following to attributes are used in the linked list.
     Person* next;
     Person* prev;
+
+    // phase2
+    vector<Person*> myfriends;
+    string uniqueID_;
 
 public: 
     Person();
@@ -42,6 +49,10 @@ public:
 
     // added this fuction to save files
     void print_person(ofstream &ofstr);
+
+    // phase 2
+    void makeFriend(Person* newFriend);
+    string getUniqueID();
 };
 
 

@@ -3,6 +3,7 @@
 #include <string>
 #include <sstream>
 #include <fstream>
+#include "misc.h"
 
 Person::Person(){
     // I'm already done! 
@@ -15,6 +16,10 @@ Person::~Person(){
     // TODO: complete the method!
     delete email;
     delete phone;
+
+    while (myfriends.size() != 0){
+        myfriends.pop_back();
+    }
 }
 
 
@@ -57,6 +62,10 @@ Person::Person(string f_name_, string l_name_, string b_date_, string email_, st
     typeP.erase(typeP.size() - 1, 1);
     // allocate and construct a new phone object
     phone = new Phone(typeP, phoneIn);
+
+
+    // make unique ID
+    uniqueID_ = makeUniqueID(f_name, l_name);
 }
 
 
@@ -223,6 +232,11 @@ void Person::print_person(){
 	birthdate->print_date("Month D, YYYY");
     email->print();
     phone->print();
+
+    // print friends now
+    for (int i = 0; i < myfriends.size(); i++){
+        cout << myfriends[i]->getUniqueID() << endl;
+    }
 }
 
 // ctor and sets that we added to help with network
@@ -265,14 +279,9 @@ void Person::set_person(ifstream &ifstr){
     // call the constructor now
     new (this) Person(firstName, lastName, birthDate, emailIn, phoneIn);
 
-    // debugging 
-    /*
-    cout << firstName << endl;
-    cout << lastName << endl;
-    cout << birthDate << endl;
-    cout << emailIn << endl;
-    cout << phoneIn << endl;
-    */
+    // make the unique ID
+    uniqueID_ = makeUniqueID(f_name, l_name);
+
 
 }
 
@@ -287,4 +296,18 @@ void Person::print_person(ofstream &ofstr){
 	birthdate->print_date("Month D, YYYY", ofstr);
     email->print(ofstr);
     phone->print(ofstr);
+
+    // print friends now
+    for (int i = 0; i < myfriends.size(); i++){
+        ofstr << myfriends[i]->getUniqueID() << endl;
+    }
 }
+
+// phase 2
+ void Person::makeFriend(Person* newFriend){
+    myfriends.push_back(newFriend);
+ }
+
+ string Person::getUniqueID(){
+    return uniqueID_;
+ }

@@ -6,6 +6,7 @@
 #include <iostream>
 #include <string>
 
+
 #include <cstring>
 #include <dirent.h>
 #include <sys/types.h>
@@ -331,6 +332,14 @@ void Network::showMenu(){
             }
 
             cout << "Network saved in " << fileName << endl;
+
+            cout << "\n\nPress Enter key to go back to main menu ... ";
+            // clear cin
+            // clear the input buffer
+            cin.clear();
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            string temp;
+            getline(cin, temp);
         }
         else if (opt==2){
             // TODO: Complete me!
@@ -375,6 +384,14 @@ void Network::showMenu(){
 
             // close ifstr
             ifstr.close();
+
+            cout << "\n\nPress Enter key to go back to main menu ... ";
+            // clear cin
+            // clear the input buffer
+            cin.clear();
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            string temp;
+            getline(cin, temp);
         }
         else if (opt == 3){
             // TODO: Complete me!
@@ -397,7 +414,16 @@ void Network::showMenu(){
             }
             else {
                 cout << "Sorry. That person exists already." << endl;
+                delete temp;
             }
+
+            cout << "\n\nPress Enter key to go back to main menu ... ";
+            // clear cin
+            // clear the input buffer
+            cin.clear();
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            string line;
+            getline(cin, line);
         }
         else if (opt == 4){
             // TODO: Complete me!
@@ -417,6 +443,14 @@ void Network::showMenu(){
             else {
                 cout << "Person not found! \n";
             }
+
+            cout << "\n\nPress Enter key to go back to main menu ... ";
+            // clear cin
+            // clear the input buffer
+            cin.clear();
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            string temp;
+            getline(cin, temp);
         }
         else if (opt==5){
             // TODO: Complete me!
@@ -440,20 +474,69 @@ void Network::showMenu(){
                 cout << output << endl;
             }
 
+            cout << "\n\nPress Enter key to go back to main menu ... ";
+            // clear cin
+            // clear the input buffer
+            cin.clear();
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            string temp;
+            getline(cin, temp);
             
         }
         else if (opt==6){
         //connect with friends
-        string output1="";
-        string output2="";
+        //string output1="";
+        //string output2="";
         cout<<"Make friends: \n";
         cout<<"Person 1"<<endl;
         cout << "First name: ";
         getline(cin, fname);
         cout << "Last name: ";
         getline(cin, lname);
-        search(lname, &output1);
-        
+        //search(lname, &output1);
+
+
+        // search if person 1 exists
+        // make a Person* to search for person 1
+        Person* person1 = search(fname, lname);
+
+        // get person 2 data
+        cout << "Person 2\nFirst name: ";
+        getline(cin, fname);
+        cout << "Last name: ";
+        getline(cin, lname);
+        cout << endl;
+        cout << endl;
+
+        // search for Person 2
+        Person* person2 = search(fname, lname);
+
+        // if both exist, print contents out
+        if ((person1 != NULL) && (person2 != NULL)){
+            person1->print_person();
+            cout << endl;
+            cout << endl;
+            person2->print_person();
+
+            // make new friends
+            person1->makeFriend(person2);
+            person2->makeFriend(person1);
+        }
+        // if only 1 exists
+        else if ((person1 == NULL) && (person2 != NULL)){
+            cout << "Person 1 cannot be found.\n\n";
+        }
+        else if ((person1 != NULL) && (person2 == NULL)){
+            cout << "Person 2 cannot be found.\n\n";
+        }
+        // if neither exist
+        else {
+            cout << "Neither person can be found.\n\n";
+        }
+
+
+
+        /*
             if (output1.size() == 0){
                 cout << "Person not found! \n";
             }
@@ -480,13 +563,16 @@ void Network::showMenu(){
         
         cin.clear();
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        */
         cout << "\n\nPress Enter key to go back to main menu ... ";
         string temp;
         std::getline (std::cin, temp);
         cout << "\033[2J\033[1;1H";
+    //}
+    
     }
-}
 
+    }
 }
 
 // friend functions
